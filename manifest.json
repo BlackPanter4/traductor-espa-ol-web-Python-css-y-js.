@@ -1,1 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TIRO AL BLANCO $40 ENVIO - TANKE</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial Black,Arial}
+body{background:#fff7f0}
+.header{background:linear-gradient(#ff4d00,#ffae00);text-align:center;padding:8px;border:6px solid #4b2a00;color:#4b2a00}
+.header h1{font-size:32px;line-height:0.9} .header h1 span{color:white;-webkit-text-stroke:2px #4b2a00}
+.sub{ background:#1e2aff;color:white;padding:6px;border-radius:12px;margin:6px;font-size:13px;font-weight:900}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:6px}
+.card{border-radius:12px;padding:8px;text-align:center;color:white;cursor:pointer;min-height:130px;border:3px solid #0002}
+.card:active{transform:scale(0.95)}
+.naranja{background:#ff7b1a} .azul{background:#00b8ff} .rosa{background:#ff2e9a}
+.morado{background:#8a2eff} .azul2{background:#0066ff} .verde{background:#00c853}
+.card h3{font-size:14px;line-height:1} .card p{font-size:10px;margin-top:4px;font-family:Arial}
+.juego{background:#000;color:#00ff88;text-align:center;padding:10px;margin:6px;border-radius:12px;border:3px solid #00ff88}
+#blanco{width:80px;height:80px;background:#00ff88;border-radius:50%;margin:10px auto;box-shadow:0 0 20px #00ff88;display:flex;align-items:center;justify-content:center;font-size:30px}
+.footer{background:#1e2aff;color:#ffea00;text-align:center;padding:10px;border-radius:12px;margin:6px}
+.footer h2{font-size:28px} .footer span{color:white;font-size:14px}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>TIRO AL BLANCO<br><span style="font-size:42px">$40 ENVÍO</span></h1>
+<div class="sub">TODOS LOS NEGOCIOS EN UN SOLO WHATSAPP 8721562620<br>Un solo número. Pedimos y te lo llevamos por SOLO $40 de envío</div>
+</div>
 
+<div class="grid">
+<div class="card naranja" onclick="pedir('Gorditas Los Nietos Anita')"><h3>🥟<br>Gorditas Los Nietos Anita</h3><p>Frente Autozone<br>Maíz $17 • Harina $18<br><b>Recargas Telcel • Movistar</b></p></div>
+<div class="card azul" onclick="pedir('Lonches Chapos')"><h3>🍔<br>Lonches Chapos</h3><p>$85 • Pierna adobada<br>• Milanesa</p></div>
+<div class="card rosa" onclick="pedir('Gorditas Huitron')"><h3>🥟<br>Gorditas Huitron</h3><p>¡Las mejores de la colonia!</p></div>
+
+<div class="card morado" onclick="pedir('Lavadora Eduardo')"><h3>🫧<br>Lavadora en renta Eduardo's</h3><p>$100 por 24hrs • A domicilio<br>Tel 8721329334</p></div>
+<div class="card azul2" onclick="pedir('Autozone Cubre volante')"><h3>🏎️<br>Autozone Ford • Chevrolet</h3><p>Cubre volante gris rojo $299</p></div>
+<div class="card verde" onclick="pedir('Taller Olvera')"><h3>🔧<br>Taller Suspensión Olvera</h3><p>Reparación y mantenimiento</p></div>
+
+<div class="card naranja" onclick="pedir('Limpieza')"><h3>🧹<br>Limpieza</h3><p>Trapeador $80<br>• Escoba $90</p></div>
+<div class="card azul2" onclick="pedir('Mensajeria Exterac')" style="grid-column: span 2;"><h3>🏍️ Mensajería Exterac<br>$60 • Entregas rápidas</h3><p>¡Nosotros ponemos la mensajería!</p></div>
+</div>
+
+<div class="juego">
+<h3>🎯 TIRO AL BLANCO - GANA $10 DE RECARGA</h3>
+<div id="blanco" onclick="tiro()">🎯</div>
+<div id="score">Score: 0 - ¡Dale al blanco!</div>
+<button onclick="cobrar()" style="background:#25D366;color:white;border:none;padding:10px 20px;border-radius:20px;font-weight:900;margin-top:8px">Cobrar por WhatsApp 8721562620</button>
+</div>
+
+<div class="footer">
+<div>CEREBRO CENTRAL • PEDIDOS WHATSAPP:</div>
+<h2>📞 8721562620</h2>
+<span>Servicio local • Rápido • Seguro • Paga al recibir • ¡TODO EN UN SOLO WHATSAPP!</span>
+</div>
+
+<script>
+let s=0;
+function pedir(negocio){
+  window.open('https://wa.me/528721562620?text=Hola%20TANKE%20quiero%20pedir%20de%20'+encodeURIComponent(negocio)+'%20vi%20tu%20publicidad%20Tiro%20al%20Blanco');
+}
+function tiro(){
+  s++; document.getElementById('score').innerText='Score: '+s+' - ¡Sigue tirando!';
+  let b=document.getElementById('blanco'); b.style.marginLeft=Math.random()*60+'%';
+  if(s>=10){ alert('¡GANASTE $10! Cobra por WhatsApp'); cobrar(); }
+}
+function cobrar(){
+  window.open('https://wa.me/528721562620?text=Hola%20TANKE%20gane%20'+s+'%20en%20Tiro%20al%20Blanco%20quiero%20mi%20recarga');
+}
+</script>
+</body>
+</html>
