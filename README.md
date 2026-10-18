@@ -16,3 +16,17 @@ Todos los negocios en un solo WhatsApp. $40 de envío a domicilio.
 
 ## WhatsApp: 8721562620
 Creado por Isaias Hernandez - Mercado Virtual TANKE
+# 📓 CUADERNO MAGICO - Traductor ALFA a WEB / PYTHON / PWA
+
+> **Proyecto DrinkFlow - TANKE Recargas Electrónicas**
+> WhatsApp: **8721562620**
+
+Traductor de lenguaje **ALFA** a proyectos reales: **HTML, CSS, JS, PYTHON y PWA instalable**.
+
+### 🚀 Demo PWA
+🔗 **Live:** `https://blackpanter4.github.io/traductor-espa-ol-web-Python-css-y-js/`
+📱 Instalable: Chrome > Menú > Instalar app
+📴 Funciona sin internet (Modo Offline)
+
+### 🧠 ¿Qué hace?crea código.
+fasil sencillo,quien más?
