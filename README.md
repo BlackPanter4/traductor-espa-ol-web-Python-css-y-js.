@@ -28,5 +28,34 @@ Traductor de lenguaje **ALFA** a proyectos reales: **HTML, CSS, JS, PYTHON y PWA
 📱 Instalable: Chrome > Menú > Instalar app
 📴 Funciona sin internet (Modo Offline)
 
-### 🧠 ¿Qué hace?crea código.
-fasil sencillo,quien más?
+### 🧠 ¿Qué hace?- Escribes en **ALFA** (ej. `Hola mundo` o `Tiro al Blanco`)
+- Traduce a **WEB**: `index.html + style.css + script.js`
+- Traduce a **PYTHON**: `main.py` con tkinter
+- Genera **PWA**: `manifest.json + sw.js`
+- Conecta a **WhatsApp** directo para cobrar recargas
+
+### 🎯 Proyecto Actual: Tiro al Blanco - TANKE
+- **Comercio:** TANKE Recargas Electrónicas
+- **WhatsApp:** [528721562620](https://wa.me/528721562620)
+- **Tema:** #00ff88 / Fondo #000000
+- **Mecánica:** Gana 10 puntos y cobra tu recarga por WhatsApp automático
+
+### 📂 Estructura
+### 🛠️ Tecnologías
+- HTML5 + CSS3 + Vanilla JS
+- Python Tkinter
+- PWA - Service Workers
+- WhatsApp API `wa.me`
+
+### 📲 Cómo usar
+1. Pega tu código ALFA en el cuaderno
+2. Click en ⚡ TRADUCIR A PWA
+3. Ve las pestañas: WEB / PYTHON / PWA
+4. Botón 💾 Guardar Todo
+
+### 👨‍💻 Autor
+**BlackPanter4** - Ciudad Juárez, MX
+Proyecto DrinkFlow - 2026
+
+---
+> Modo Offline Simulado - Funciona sin internet
