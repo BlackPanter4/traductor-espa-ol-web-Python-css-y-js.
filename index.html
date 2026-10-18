@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box;font-family:monospace}
+body{margin:0;background:#000}
+.app{border:3px solid #00ff88;border-radius:18px;padding:12px;margin:8px}
+h1{color:#00ff88;text-align:center;margin:0;font-size:28px}
+.sub{text-align:center;color:#777;margin:4px 0 10px 0}
+textarea{width:100%;height:120px;background:#000;color:#00ff88;border:2px solid #00ff88;border-radius:12px;padding:10px}
+.btn{width:100%;padding:14px;border-radius:12px;font-weight:900;border:none;margin-top:10px;font-size:16px;cursor:pointer}
+.btn-verde{background:#00ff88;color:#000}
+.btn-negro{background:#111;color:#00ff88;border:2px solid #00ff88}
+.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px}
+.tab{padding:10px;border-radius:10px 10px 0 0;text-align:center;font-weight:900;border:2px solid #00ff88;background:#000;color:#00ff88}
+.tab.activo{background:#00ff88;color:#000}
+#resultado{width:100%;height:260px;background:#000;color:#fff;border:2px solid #00ff88;border-top:none;border-radius:0 0 12px 12px;padding:10px;white-space:pre-wrap;overflow:auto;font-size:12px}
+.acciones{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+.mini{padding:12px;border-radius:10px;font-weight:800;border:2px solid #00ff88;cursor:pointer}
+.barrer{border-color:#ff4444;color:#ff4444;background:#000}
+#estado{text-align:center;color:#00ff88;margin-top:8px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="app">
+<h1>📓 CUADERNO MAGICO V4</h1>
+<div class="sub">DrinkFlow - TANKE 8721562620</div>
 
+<textarea id="entrada" placeholder="Pega tu ALFA aquí..."></textarea>
+
+<button class="btn btn-verde" onclick="traducir()">⚡ TRADUCIR A PWA - TANKE</button>
+
+<div class="tabs">
+<div id="tWEB" class="tab" onclick="ver('WEB')">WEB</div>
+<div id="tPY" class="tab" onclick="ver('PYTHON')">PYTHON</div>
+<div id="tPWA" class="tab activo" onclick="ver('PWA')">PWA</div>
+</div>
+<div id="resultado">{
+  "name": "Tiro al Blanco - TANKE",
+  "short_name": "TiroBlanco",
+  "description": "Recargas Electronicas TANKE - WhatsApp 8721562620",
+  "theme_color": "#00ff88"
+}</div>
+
+<div class="acciones">
+<button class="mini btn-verde" onclick="copiar()">📋 COPIAR</button>
+<button class="mini btn-verde" onclick="guardar()">💾 Guardar Todo .TXT</button>
+<button class="mini barrer" onclick="barrer()">🧹 BARRER</button>
+</div>
+
+<div id="estado">Traducción OK TANKE - 8721562620 listo</div>
+</div>
+
+<script>
+let cache={WEB:'<h1>Tiro al Blanco - TANKE</h1><p>Recargas y Mercado Virtual</p>',PYTHON:'proyecto=Tiro al Blanco\ntanke=8721562620\nprint("TANKE Activo")',PWA:'{\n  "name": "Tiro al Blanco - TANKE",\n  "short_name": "TiroBlanco",\n  "theme_color": "#00ff88",\n  "icons": [{"src":"icon.png","sizes":"512x512"}]\n}\n\n// sw.js ya generado para offline\n// WhatsApp: https://wa.me/528721562620'};
+let actual='PWA';
+function traducir(){
+ let t=document.getElementById('entrada').value;
+ if(t) cache.PWA += '\n\n// ALFA DETECTADO:\n// '+t.slice(0,200);
+ ver(actual);
+ document.getElementById('estado').innerText='Traducción OK TANKE - '+new Date().toLocaleTimeString();
+}
+function ver(tipo){
+ actual=tipo;
+ document.querySelectorAll('.tab').forEach(e=>e.classList.remove('activo'));
+ document.getElementById(tipo=='WEB'?'tWEB':tipo=='PYTHON'?'tPY':'tPWA').classList.add('activo');
+ if(tipo=='WEB') document.getElementById('resultado').innerText=cache.WEB;
+ if(tipo=='PYTHON') document.getElementById('resultado').innerText=cache.PYTHON;
+ if(tipo=='PWA') document.getElementById('resultado').innerText=cache.PWA;
+}
+function copiar(){
+ let txt=document.getElementById('resultado').innerText;
+ navigator.clipboard.writeText(txt).then(()=>alert('Copiado')).catch(()=>{
+   let r=document.getElementById('resultado'); let sel=window.getSelection(); let range=document.createRange(); range.selectNodeContents(r); sel.removeAllRanges(); sel.addRange(range);
+   alert('Ahora mantén presionado y dale Copiar');
+ });
+}
+function guardar(){
+ let contenido=`CUADERNO MAGICO V4 - TANKE 8721562620\n${new Date().toLocaleString()}\n\nALFA:\n${document.getElementById('entrada').value}\n\n---\n${document.getElementById('resultado').innerText}`;
+ let blob=new Blob([contenido],{type:'text/plain'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='TANKE_TiroAlBlanco_V4.txt'; a.click();
+}
+function barrer(){
+ document.getElementById('entrada').value='';
+ document.getElementById('resultado').innerText='';
+ cache={WEB:'',PYTHON:'',PWA:''};
+ document.getElementById('estado').innerText='Barrido 🧹 - listo para nuevo proyecto';
+}
+</script>
+</body>
+</html>
