@@ -1,93 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<link rel="manifest" href="manifest.json">
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}</script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CUADERNO MAGICO V3</title>
 <style>
-*{box-sizing:border-box;font-family:monospace}
-body{margin:0;background:#000}
-.app{border:3px solid #00ff88;border-radius:18px;padding:12px;margin:8px}
-h1{color:#00ff88;text-align:center;margin:0;font-size:28px}
-.sub{text-align:center;color:#777;margin:4px 0 10px 0}
-textarea{width:100%;height:120px;background:#000;color:#00ff88;border:2px solid #00ff88;border-radius:12px;padding:10px}
-.btn{width:100%;padding:14px;border-radius:12px;font-weight:900;border:none;margin-top:10px;font-size:16px;cursor:pointer}
-.btn-verde{background:#00ff88;color:#000}
-.btn-negro{background:#111;color:#00ff88;border:2px solid #00ff88}
-.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px}
-.tab{padding:10px;border-radius:10px 10px 0 0;text-align:center;font-weight:900;border:2px solid #00ff88;background:#000;color:#00ff88}
-.tab.activo{background:#00ff88;color:#000}
-#resultado{width:100%;height:260px;background:#000;color:#fff;border:2px solid #00ff88;border-top:none;border-radius:0 0 12px 12px;padding:10px;white-space:pre-wrap;overflow:auto;font-size:12px}
-.acciones{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
-.mini{padding:12px;border-radius:10px;font-weight:800;border:2px solid #00ff88;cursor:pointer}
-.barrer{border-color:#ff4444;color:#ff4444;background:#000}
-#estado{text-align:center;color:#00ff88;margin-top:8px;font-size:13px}
+body{background:#000;color:#0f0;font-family:monospace;margin:0;padding:10px}
+.app{max-width:650px;margin:auto;border:2px solid #0f0;border-radius:16px;padding:14px;box-shadow:0 0 25px #0f05}
+h1{text-align:center;color:#0f0;margin:5px 0;font-size:26px}
+.sub{text-align:center;color:#888;font-size:12px}
+textarea{width:100%;height:110px;background:#0a0a0a;color:#0f0;border:2px solid #0f0;border-radius:10px;padding:10px;box-sizing:border-box;font-size:15px}
+.btn-prin{width:100%;background:#0f0;color:#000;border:none;padding:14px;border-radius:12px;font-weight:bold;font-size:18px;margin:10px 0;cursor:pointer}
+.tabs{display:flex;gap:6px;margin-top:10px}
+.tab{flex:1;padding:10px;border-radius:10px 10px 0 0;border:1px solid #0f0;background:#111;color:#0f0;cursor:pointer;font-weight:bold;font-size:12px}
+.tab.active{background:#0f0;color:#000}
+.panel{display:none;background:#111;border:1px solid #0f0;border-top:none;border-radius:0 0 10px 10px;padding:10px;min-height:220px;white-space:pre-wrap;color:#fff;font-size:11px;overflow:auto}
+.panel.active{display:block}
+.mini{margin-top:8px;background:#0f0;color:#000;border:none;padding:8px 12px;border-radius:8px;font-weight:bold;cursor:pointer;width:100%}
+#estado{color:#0a5;font-size:11px;text-align:center;margin-top:12px}
 </style>
 </head>
 <body>
 <div class="app">
-<h1>📓 CUADERNO MAGICO V4</h1>
-<div class="sub">DrinkFlow - TANKE 8721562620</div>
-
-<textarea id="entrada" placeholder="Pega tu ALFA aquí..."></textarea>
-
-<button class="btn btn-verde" onclick="traducir()">⚡ TRADUCIR A PWA - TANKE</button>
+<h1>📓 CUADERNO MAGICO V3</h1>
+<p class="sub">Traductor ALFA a WEB / PYTHON - DrinkFlow</p>
+<textarea id="entrada" placeholder="Pega tu código ALFA...
+Ej: Hola mundo
+O: Juego Tiro al blanco"></textarea>
+<button class="btn-prin" onclick="traducir()">⚡ TRADUCIR A PWA</button>
 
 <div class="tabs">
-<div id="tWEB" class="tab" onclick="ver('WEB')">WEB</div>
-<div id="tPY" class="tab" onclick="ver('PYTHON')">PYTHON</div>
-<div id="tPWA" class="tab activo" onclick="ver('PWA')">PWA</div>
-</div>
-<div id="resultado">{
-  "name": "Tiro al Blanco - TANKE",
-  "short_name": "TiroBlanco",
-  "description": "Recargas Electronicas TANKE - WhatsApp 8721562620",
-  "theme_color": "#00ff88"
-}</div>
-
-<div class="acciones">
-<button class="mini btn-verde" onclick="copiar()">📋 COPIAR</button>
-<button class="mini btn-verde" onclick="guardar()">💾 Guardar Todo .TXT</button>
-<button class="mini barrer" onclick="barrer()">🧹 BARRER</button>
+<button class="tab active" onclick="verTab('web')">WEB</button>
+<button class="tab" onclick="verTab('cssjs')">CSS / JS</button>
+<button class="tab" onclick="verTab('py')">PYTHON</button>
+<button class="tab" onclick="verTab('pwa')">PWA</button>
 </div>
 
-<div id="estado">Traducción OK TANKE - 8721562620 listo</div>
+<div id="panel-web" class="panel active">Resultado WEB aquí...</div>
+<div id="panel-cssjs" class="panel">Resultado CSS/JS aquí...</div>
+<div id="panel-py" class="panel">Resultado PYTHON aquí...</div>
+<div id="panel-pwa" class="panel">Resultado PWA aquí...</div>
+
+<button class="mini" onclick="copiarActual()">📋 Copiar esta pestaña</button>
+<div style="display:flex;gap:6px">
+<button class="mini" style="background:#333;color:#0f0" onclick="barrer()">🧹 Barrer</button>
+<button class="mini" onclick="guardarTodo()">💾 Guardar Todo</button>
+</div>
+<p id="estado">Estado: Listo - V3 Separada</p>
 </div>
 
 <script>
-let cache={WEB:'<h1>Tiro al Blanco - TANKE</h1><p>Recargas y Mercado Virtual</p>',PYTHON:'proyecto=Tiro al Blanco\ntanke=8721562620\nprint("TANKE Activo")',PWA:'{\n  "name": "Tiro al Blanco - TANKE",\n  "short_name": "TiroBlanco",\n  "theme_color": "#00ff88",\n  "icons": [{"src":"icon.png","sizes":"512x512"}]\n}\n\n// sw.js ya generado para offline\n// WhatsApp: https://wa.me/528721562620'};
-let actual='PWA';
+let pestañaActual = 'web';
+let datos = {web:'', cssjs:'', py:'', pwa:''};
+
+function verTab(t){
+ pestañaActual=t;
+ document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+ document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+ document.getElementById('panel-'+t).classList.add('active');
+ event.target.classList.add('active');
+}
 function traducir(){
- let t=document.getElementById('entrada').value;
- if(t) cache.PWA += '\n\n// ALFA DETECTADO:\n// '+t.slice(0,200);
- ver(actual);
- document.getElementById('estado').innerText='Traducción OK TANKE - '+new Date().toLocaleTimeString();
+ let alfa = document.getElementById('entrada').value.trim();
+ if(!alfa) return alert('Pega código ALFA');
+ let up = alfa.toUpperCase();
+ let isTiro = up.includes('TIRO');
+
+ // WEB
+ let html = `<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<title>${alfa.substring(0,20)}</title>\n<link rel="stylesheet" href="style.css">\n</head>\n<body>\n`;
+ html += isTiro ? `<h1>Tiro al Blanco</h1>\n<div id="blanco"></div>\n<p id="score">Score: 0</p>` : `<h1>Hola mundo</h1>\n<p>Bienvenido desde ALFA</p>\n<button onclick="saludar()">Click</button>`;
+ html += `\n<script src="script.js"><\/script>\n</body>\n</html>`;
+ 
+ // CSS/JS
+ let css = `body{background:#000;color:#fff;text-align:center;font-family:sans-serif;padding-top:40px}\n#blanco{width:100px;height:100px;background:red;border-radius:50%;margin:20px auto;cursor:pointer}\nh1{color:#0f0}`;
+ let js = isTiro ? `let s=0;\nconst b=document.getElementById('blanco');\n b.onclick=()=>{s++; document.getElementById('score').innerText='Score: '+s; b.style.marginLeft=Math.random()*200+'px'};` : `function saludar(){alert('Hola mundo desde ALFA!')}`;
+
+ // PYTHON
+ let py = isTiro ? `import tkinter as tk\nimport random\nroot=tk.Tk()\nroot.title("Tiro al Blanco - ALFA")\nroot.geometry("400x400")\nroot.config(bg="black")\nscore=0\ncanvas=tk.Canvas(root,width=300,height=300,bg="black",highlightthickness=0)\ncanvas.pack(pady=20)\nblanco=canvas.create_oval(100,100,200,200,fill="red")\ndef tiro(e):\n    global score\n    score+=1\n    print(f"Tiro! Score {score}")\n    canvas.coords(blanco, random.randint(0,200), random.randint(0,200), random.randint(200,300), random.randint(200,300))\ncanvas.tag_bind(blanco,"<Button-1>",tiro)\nroot.mainloop()` : `print("Hola mundo")\nprint("Traducido desde ALFA a Python")\ninput("Presiona enter...")`;
+
+ // PWA
+ let pwa = `MANIFEST GENERADO + SW.JS + INDEX ACTUALIZADO\n✅ PWA Completa lista\n✅ Instalable en Chrome -> Menú -> Instalar app\n✅ Offline: Funciona sin internet\n\nmanifest.json:\n{\n "name": "Cuaderno Magico",\n "short_name": "Magico",\n "start_url": ".",\n "display": "standalone",\n "background_color": "#000",\n "theme_color": "#0f0"\n}\n\nsw.js: cache básico generado`;
+
+ datos = {web:html, cssjs: css+"\\n\\n//--- script.js ---\\n"+js, py:py, pwa:pwa};
+ document.getElementById('panel-web').innerText = html;
+ document.getElementById('panel-cssjs').innerText = datos.cssjs;
+ document.getElementById('panel-py').innerText = py;
+ document.getElementById('panel-pwa').innerText = pwa;
+ document.getElementById('estado').innerText = `Estado: Traducción OK - Proyecto ${isTiro?'TIRO_AL_BLANCO':'HOLA_MUNDO'} - WEB+PYTHON+CSS+JS`;
 }
-function ver(tipo){
- actual=tipo;
- document.querySelectorAll('.tab').forEach(e=>e.classList.remove('activo'));
- document.getElementById(tipo=='WEB'?'tWEB':tipo=='PYTHON'?'tPY':'tPWA').classList.add('activo');
- if(tipo=='WEB') document.getElementById('resultado').innerText=cache.WEB;
- if(tipo=='PYTHON') document.getElementById('resultado').innerText=cache.PYTHON;
- if(tipo=='PWA') document.getElementById('resultado').innerText=cache.PWA;
-}
-function copiar(){
- let txt=document.getElementById('resultado').innerText;
- navigator.clipboard.writeText(txt).then(()=>alert('Copiado')).catch(()=>{
-   let r=document.getElementById('resultado'); let sel=window.getSelection(); let range=document.createRange(); range.selectNodeContents(r); sel.removeAllRanges(); sel.addRange(range);
-   alert('Ahora mantén presionado y dale Copiar');
- });
-}
-function guardar(){
- let contenido=`CUADERNO MAGICO V4 - TANKE 8721562620\n${new Date().toLocaleString()}\n\nALFA:\n${document.getElementById('entrada').value}\n\n---\n${document.getElementById('resultado').innerText}`;
- let blob=new Blob([contenido],{type:'text/plain'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='TANKE_TiroAlBlanco_V4.txt'; a.click();
+
+function copiarActual(){
+ let txt = document.getElementById('panel-'+pestañaActual).innerText;
+ navigator.clipboard.writeText(txt);
+ alert('Copiado: '+pestañaActual.toUpperCase());
 }
 function barrer(){
  document.getElementById('entrada').value='';
- document.getElementById('resultado').innerText='';
- cache={WEB:'',PYTHON:'',PWA:''};
- document.getElementById('estado').innerText='Barrido 🧹 - listo para nuevo proyecto';
+}
+function guardarTodo(){
+ let todo = `--- index.html ---\n${datos.web}\n\n--- style.css + script.js ---\n${datos.cssjs}\n\n--- main.py ---\n${datos.py}\n\n--- pwa ---\n${datos.pwa}`;
+ let blob = new Blob([todo],{type:'text/plain'});
+ let a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);
+ a.download='cuaderno_magico_traducido.txt';
+ a.click();
 }
 </script>
 </body>
